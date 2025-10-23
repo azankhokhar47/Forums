@@ -33,14 +33,14 @@ echo'
       <form class="d-flex" role="search">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
         <button class="btn btn-success" type="submit">Search</button>
-        <button type="button" class="btn btn-outline-success ml-2">login</button>
-        <button type="button" class="btn btn-outline-success mx-2">signup</button>
+        <button type="button" class="btn btn-outline-success ml-2" data-bs-toggle="modal" data-bs-target="#loginModal">Login</button>
+        <button type="button" class="btn btn-outline-success mx-2" data-bs-toggle="modal" data-bs-target="#signupModal">Signup</button>
       </form>
       </div>
     </div>
   </div>
-</nav>
-';
+</nav>';
 
-include 'partials/loginModel.php';
+include 'partials/LoginModel.php';
+include 'partials/SignupModel.php';
 ?>
