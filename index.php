@@ -5,8 +5,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>iDiscuss - Coding forum</title>
+    <link rel="stylesheet" href="style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    
 </head>
 
 <body>
@@ -31,10 +33,10 @@
                 <img src="images/python3.img" class="d-block w-100" style="height:500px; object-fit:cover;" alt="...">
             </div>
             <div class="carousel-item">
-                <img src="images/computer3.img" class="d-block w-100" style="height:500px; object-fit:cover;" alt="...">
+                <img src="images/php3.img" class="d-block w-100" style="height:500px; object-fit:cover;" alt="...">
             </div>
             <div class="carousel-item">
-                <img src="images/php.img" class="d-block w-100" style="height:500px; object-fit:cover;" alt="...">
+                <img src="images/php4.img" class="d-block w-100" style="height:500px; object-fit:cover;" alt="...">
             </div>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
@@ -51,7 +53,7 @@
 
     <!-- catagories container start here   -->
 
-    <div class="container my-3">
+    <div class="container my-3 ">
         <h2 class="text-center my-3">iDiscuss - browse Categories</h2>
         <div class="row">
 
@@ -67,7 +69,7 @@
 
                echo '<div class="col-md-4 my-2">
             <div class="card" style="width: 18rem;">
-                <img src="images/programming-language.img" class="card-img-top" alt="'. $cat .'">
+                <img src="images/card-'.$id.'.img" class="card-img-top" alt="'. $cat .'">
                 <div class="card-body">
                     <h5 class="card-title"><a href="threadlist.php?catid='. $id .' "> '. $cat .'  </a></h5>
                     <p class="card-text">'. $desc .'</p>
