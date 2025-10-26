@@ -25,6 +25,16 @@ $sql = "SELECT * FROM `categories` WHERE categori_id=$id";
             }
 ?>
 
+    <?php
+$method = $_SERVER['REQUEST_METHOD'];
+if($method=='POST'){
+$th_tittle = $_POST['tittle'];
+$th_desc = $_POST['desc'];
+sql = "INSERT INTO `threads` (`thread_title`, `thread_desc`, `thread_cat_id`, `thread_user_id`, `timestamp`) VALUES ('$th_tittle', '$th_desc', '$id', '0', current_timestamp())";
+$result = mysqli_query($conn, $sql);
+}
+?>
+
 
     <div class="container my-4">
         <div class="alert alert-success" role="alert">
@@ -38,33 +48,63 @@ $sql = "SELECT * FROM `categories` WHERE categori_id=$id";
         </div>
     </div>
 
+    <div class="container">
+        <h1>Start a discussion</h1>
+        <form action="<?php echo $_SERVER['REQUEST_URI']  ?>" method="post">
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Problem Tittle</label>
+                <input type="text" class="form-control" id="tittle" name="tittle" aria-describedby="emailHelp">
+                <div id="emailHelp" class="form-text">Keep your tittle as short and crisp as possible</div>
+            </div>
+            <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">elaburate your problem</label>
+                <textarea class="form-control" id="desc" name="desc" rows="3"></textarea>
+            </div>
+            <button type="submit" class="btn btn-success">Submit</button>
+        </form>
+    </div>
     <div class="container py-2">
-        <h1>Browse Question</h1>
 
         <?php
 $id = $_GET['catid'];
 $sql = "SELECT * FROM `threads` WHERE thread_cat_id=$id";
-            $result = mysqli_query($conn, $sql);
-            while($row = mysqli_fetch_assoc($result)){
-                $id = $row['thread_id'];
-                $title = $row['thread_title'];
-                $desc = $row['thread_desc'];
-           
+$result = mysqli_query($conn, $sql);
 
-      echo '<div class="d-flex my-3">
+$noResult = true;
+
+while($row = mysqli_fetch_assoc($result)){
+    $noResult = false;
+    $thread_id = $row['thread_id'];
+    $title = $row['thread_title'];
+    $desc = $row['thread_desc'];
+
+    echo '<div class="d-flex my-3">
             <div class="flex-shrink-0">
                 <img src="images/user-default.img" width="50px" alt="...">
             </div>
             <div class="as-0">
-                <h5 class="ms-3"> <a class="text-dark" href="thread.php?threadid=' . $id . '">'. $title .'</a></h5>
+                <h5 class="ms-3"> <a class="text-dark" href="thread.php?threadid=' . $thread_id . '">'. $title .'</a></h5>
                 <div class="flex-grow-1 ms-3">
                     '. $desc .'
                 </div>
             </div>
         </div>';
- }
+}
+
+// ✅ Print alert *after loop*
+if($noResult){
+    echo '<div class="alert alert-success" role="alert">
+            <h4 class="alert-heading">No questions for this category</h4>
+            <p>Be the first person to ask a question.</p>
+            <hr>
+          </div>';
+}
 ?>
-                 <!-- Maybe futher it use for templete  -->
+
+
+
+
+        <!-- Maybe futher it use for templete  -->
 
         <!-- <div class="d-flex my-3">
             <div class="flex-shrink-0">
