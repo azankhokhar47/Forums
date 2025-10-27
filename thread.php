@@ -11,7 +11,7 @@
 </head>
 
 <body>
-<?php
+    <?php
 include 'partials/_header.php';
 include 'partials/_dbconnect.php';
 
@@ -35,6 +35,27 @@ $desc = $row['thread_desc'];
 
 ?>
 
+<?php
+$method = $_SERVER['REQUEST_METHOD'];
+if($method=='POST'){
+$comment = $_POST['comment'];
+$sql = "INSERT INTO `comments` (`comment_content`, `thread_id`, `comment_by`, `comment_time`) VALUES ('$comment', '$id', '0', current_timestamp());
+";
+$result = mysqli_query($conn, $sql);
+
+    if($result){
+        echo '<div class="alert alert-success" role="alert">
+                ✅ Your comment has been posted successfully!
+              </div>';
+    } else {
+        echo '<div class="alert alert-danger" role="alert">
+                ❌ Failed to submit the comment.
+              </div>';
+    }
+
+}
+?>
+
 
     <div class="container my-4">
         <div class="alert alert-success" role="alert">
@@ -48,9 +69,56 @@ $desc = $row['thread_desc'];
         </div>
     </div>
 
+
+    <div class="container">
+        <h1>Post a comment</h1>
+        <form action="<?php echo $_SERVER['REQUEST_URI']  ?>" method="post">
+            <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">Type your comment</label>
+                <textarea class="form-control" id="comment" name="comment" rows="3"></textarea>
+            </div>
+            <button type="submit" class="btn btn-success">Post comment</button>
+        </form>
+    </div>
+
     <div class="container py-2">
         <h1>discussions</h1>
-    </div>
+
+<?php
+$thread_id = $_GET['threadid'];
+$sql = "SELECT * FROM `comments` WHERE thread_id=$thread_id";
+$result = mysqli_query($conn, $sql);
+$noResult = true;
+
+while($row = mysqli_fetch_assoc($result)){
+    $noResult = false;
+    $comment_id = $row['comment_id'];
+    $content = $row['comment_content'];
+    $comment_time = $row['comment_time'];
+
+    echo '<div class="d-flex my-3">
+            <div class="flex-shrink-0">
+                <img src="images/user-default.img" width="50px" alt="...">
+            </div>
+            <div class="as-0">
+                <div class="flex-grow-1 ms-3">
+                <p class="fw-bold my-0">Anonymous user '. $comment_time .'</p>
+                    '. $content .'
+                </div>
+            </div>
+        </div>';
+}
+
+// Show no result message
+if($noResult){
+    echo '<div class="alert alert-warning" role="alert">
+            <h4 class="alert-heading">No comments yet</h4>
+            <p>Be the first person to reply.</p>
+            <hr>
+          </div>';
+}
+?>
+</div>
 
     <?php
   include 'partials/_footer.php';

@@ -30,8 +30,19 @@ $method = $_SERVER['REQUEST_METHOD'];
 if($method=='POST'){
 $th_tittle = $_POST['tittle'];
 $th_desc = $_POST['desc'];
-sql = "INSERT INTO `threads` (`thread_title`, `thread_desc`, `thread_cat_id`, `thread_user_id`, `timestamp`) VALUES ('$th_tittle', '$th_desc', '$id', '0', current_timestamp())";
+$sql = "INSERT INTO `threads` (`thread_title`, `thread_desc`, `thread_cat_id`, `thread_user_id`, `timestamp`) VALUES ('$th_tittle', '$th_desc', '$id', '0', current_timestamp())";
 $result = mysqli_query($conn, $sql);
+
+    if($result){
+        echo '<div class="alert alert-success" role="alert">
+                ✅ Your question has been posted successfully!
+              </div>';
+    } else {
+        echo '<div class="alert alert-danger" role="alert">
+                ❌ Failed to submit the question.
+              </div>';
+    }
+
 }
 ?>
 
