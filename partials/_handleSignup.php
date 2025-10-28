@@ -22,9 +22,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $result = mysqli_query($conn, $sql);
 
         if($result){
-            print("Reuslt k andar agya");
             $showAlert = true;
              header("Location: ../index.php?signupsuccess=true");
+             exit ;
         }
     }
     else {
