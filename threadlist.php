@@ -59,9 +59,11 @@ $result = mysqli_query($conn, $sql);
         </div>
     </div>
 
-    <div class="container">
+<?php
+if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true){
+   echo'<div class="container">
         <h1>Start a discussion</h1>
-        <form action="<?php echo $_SERVER['REQUEST_URI']  ?>" method="post">
+        <form action="'.$_SERVER["REQUEST_URI"]  .'"  method="post">
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Problem Tittle</label>
                 <input type="text" class="form-control" id="tittle" name="tittle" aria-describedby="emailHelp">
@@ -73,8 +75,20 @@ $result = mysqli_query($conn, $sql);
             </div>
             <button type="submit" class="btn btn-success">Submit</button>
         </form>
-    </div>
+    </div>';
+}
+    else{
+       echo' <div class="container">
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+  You are not logged in, plz login to be able to install discussion.
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+
+</div>';
+    }
+?>
     <div class="container py-2">
+     <h1 class="p-3">Browse Question</h1>
 
         <?php
 $id = $_GET['catid'];

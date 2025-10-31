@@ -69,17 +69,29 @@ $result = mysqli_query($conn, $sql);
         </div>
     </div>
 
-
-    <div class="container">
-        <h1>Post a comment</h1>
-        <form action="<?php echo $_SERVER['REQUEST_URI']  ?>" method="post">
+    <?php
+if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true){
+   echo'<div class="container">
+        <h1>Start a discussion</h1>
+        <form action="'.$_SERVER["REQUEST_URI"]  .'"  method="post">
             <div class="mb-3">
                 <label for="exampleFormControlTextarea1" class="form-label">Type your comment</label>
                 <textarea class="form-control" id="comment" name="comment" rows="3"></textarea>
             </div>
             <button type="submit" class="btn btn-success">Post comment</button>
         </form>
-    </div>
+    </div>';
+}
+    else{
+       echo' <div class="container">
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+  You are not logged in, plz login to be able to install discussion.
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+
+</div>';
+    }
+?>
 
     <div class="container py-2">
         <h1>discussions</h1>
