@@ -12,8 +12,9 @@
 
 <body>
     <?php
-  include 'partials/_header.php';
-  include 'partials/_dbconnect.php';
+    include 'partials/_dbconnect.php';
+    include 'partials/_header.php';
+  
   ?>
     <?php
 $id = $_GET['catid'];
@@ -116,7 +117,6 @@ while($row = mysqli_fetch_assoc($result)){
         </div>';
 }
 
-// ✅ Print alert *after loop*
 if($noResult){
     echo '<div class="alert alert-success" role="alert">
             <h4 class="alert-heading">No questions for this category</h4>

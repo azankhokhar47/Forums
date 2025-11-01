@@ -12,8 +12,9 @@
 
 <body>
     <?php
-include 'partials/_header.php';
-include 'partials/_dbconnect.php';
+  include 'partials/_dbconnect.php';
+  include 'partials/_header.php';
+
 
 if(isset($_GET['threadid']) && is_numeric($_GET['threadid'])){
     $id = $_GET['threadid'];
@@ -39,6 +40,8 @@ $desc = $row['thread_desc'];
 $method = $_SERVER['REQUEST_METHOD'];
 if($method=='POST'){
 $comment = $_POST['comment'];
+$comment = str_replace("<", "&lt;", $comment);
+$comment = str_replace(">", "&gt;", $comment);
 $sql = "INSERT INTO `comments` (`comment_content`, `thread_id`, `comment_by`, `comment_time`) VALUES ('$comment', '$id', '0', current_timestamp());
 ";
 $result = mysqli_query($conn, $sql);

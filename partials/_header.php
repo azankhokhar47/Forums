@@ -21,14 +21,17 @@ echo '
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
             aria-expanded="false">
-            Categories
+            top Categories
           </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-          </ul>
+          <ul class="dropdown-menu">';
+
+          $sql = "SELECT categori_name, categori_id FROM `categories` LIMIT 3";
+
+          $result = mysqli_query($conn, $sql);
+          while($row = mysqli_fetch_assoc($result)){
+          echo'<li><a class="dropdown-item" href="threadlist.php?catid='.  $row['categori_id'] .'">'. $row['categori_name'] .'</a></li>';
+          }
+          echo '</ul>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="contact.php">Contact</a>
@@ -49,8 +52,8 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
       </form>';
 } else {
     echo '
-      <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
+      <form class="d-flex" role="search" method="get" action="search.php">
+        <input class="form-control me-2" name="search" type="search" placeholder="Search" aria-label="Search"/>
         <button  class="btn btn-success" type="submit">Search</button>
         <button type="button" class="btn btn-outline-success ml-2" data-bs-toggle="modal" data-bs-target="#loginModal">Login</button>
         <button type="button" class="btn btn-outline-success mx-2" data-bs-toggle="modal" data-bs-target="#signupModal">Signup</button>

@@ -13,8 +13,9 @@
 
 <body>
     <?php
-  include 'partials/_header.php';
-  include 'partials/_dbconnect.php';
+   include 'partials/_dbconnect.php';
+   include 'partials/_header.php';
+
 ?>
 
     <!-- slider start here -->
